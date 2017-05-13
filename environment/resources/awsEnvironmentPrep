@@ -33,34 +33,79 @@ ps -ef | grep python
 
 
 US East (N. Virginia)	us-east-1
+US East (Ohio)	us-east-2
 US West (N. California)	us-west-1
 US West (Oregon)	us-west-2
+Canada (Central) ca-central-1
 EU (Ireland)	eu-west-1
 EU (Frankfurt)	eu-central-1
-Asia Pacific (Tokyo)	ap-northeast-1
-Asia Pacific (Seoul)	ap-northeast-2
+EU (London) eu-west-2
 Asia Pacific (Singapore)	ap-southeast-1
 Asia Pacific (Sydney)	ap-southeast-2
+Asia Pacific (Seoul)	ap-northeast-2
+Asia Pacific (Tokyo)	ap-northeast-1
+Asia Pacific (Mumbai)	ap-south-1
 South America (São Paulo)	sa-east-1
 
 useast1requestCount
+useast2requestCount
 uswest1requestCount
 uswest2requestCount
+cacentral1requestCount
 euwest1requestCount
 eucentral1requestCount
+euwest2requestCount
 apnortheast1requestCount
 apnortheast2requestCount
 apsoutheast1requestCount
 apsoutheast2requestCount
+apsouth1requestCount
 saeast1requestCount
 
 useast1serverCount
+useast2requestCount
 uswest1serverCount
 uswest2serverCount
+cacentral1requestCount
 euwest1serverCount
 eucentral1serverCount
+euwest2requestCount
 apnortheast1serverCount
 apnortheast2serverCount
 apsoutheast1serverCount
 apsoutheast2serverCount
+apsouth1requestCount
 saeast1serverCount
+
+dynamodb item:
+{
+  "scope": "all",
+  "useast1requestCount": 0,
+  "useast2requestCount": 0,
+  "uswest1requestCount": 0,
+  "uswest2requestCount": 0,
+  "cacentral1requestCount": 0,
+  "euwest1requestCount": 0,
+  "eucentral1requestCount": 0,
+  "euwest2requestCount": 0,
+  "apnortheast1requestCount": 0,
+  "apnortheast2requestCount": 0,
+  "apsoutheast1requestCount": 0,
+  "apsoutheast2requestCount": 0,
+  "apsouth1requestCount": 0,
+  "saeast1requestCount": 0,
+  "useast1serverCount": 0,
+  "useast2serverCount": 0,
+  "uswest1serverCount": 0,
+  "uswest2serverCount": 0,
+  "cacentral1serverCount": 0,
+  "euwest1serverCount": 0,
+  "eucentral1serverCount": 0,
+  "euwest2serverCount": 0,
+  "apnortheast1serverCount": 0,
+  "apnortheast2serverCount": 0,
+  "apsoutheast1serverCount": 0,
+  "apsoutheast2serverCount": 0,
+  "apsouth1serverCount": 0,
+  "saeast1serverCount": 0
+}
