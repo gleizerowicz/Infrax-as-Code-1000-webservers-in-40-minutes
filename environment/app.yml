@@ -31,7 +31,7 @@ Conditions:
 Mappings:
   RegionMap:
     us-east-1:
-      app: ami-fce3c696
+      app: ami-80861296
       nat: ami-8d8976e0
       natType: t2.nano
 
