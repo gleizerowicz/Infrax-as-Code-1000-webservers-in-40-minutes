@@ -1,6 +1,30 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: app
 
+Parameters:
+  AppGitRepo:
+    Default: https://github.com/gleizerowicz/Infrax-as-Code-1000-webservers-in-40-minutes.git
+    Type: string
+    Description: The git repo where the application and environment artifacts are stored
+
+  HostedZoneName:
+    Default: leizerodemo.net.
+    Type: string
+    Description: The hosted zone name for Route 53
+
+  UseRoute53:
+    Default: true
+    Type: bool
+    Description: Used to decide whether to deploy a DNS Record Set, set to false if Route 53 is not set up
+
+  AppDnsName:
+    Default: app
+    Type: string
+    Description: DNS name of the app server (will be prepended to the Hosted Zone Name during deployment)
+
+Conditions: 
+  DeployDnsRecordSet: !Equals [ !Ref UseRoute53, true ]
+  
 Mappings:
   RegionMap:
     us-east-1:
@@ -322,7 +346,7 @@ Resources:
           pip install virtualenv
 
           # grab our code
-          git clone https://github.com/ezeeetm/Infrax-as-Code-1000-webservers-in-40-minutes.git
+          git clone ${AppGitRepo}
 
           # set up filesystem and virtualenv
           mkdir -p /var/www/myapp
@@ -344,9 +368,10 @@ Resources:
 
   dnsRecordSet:
     Type: AWS::Route53::RecordSet
+    Condition: DeployDnsRecordSet
     Properties:
-      HostedZoneName: neudemo.net.
-      Name: app.neudemo.net.
+      HostedZoneName: !Ref 'HostedZoneName'
+      Name: !Join [ ".", [ !Ref 'AppDnsName', !Ref 'HostedZoneName' ] ]
       Type: CNAME
       TTL: '5'
       SetIdentifier: !Ref 'AWS::Region'
