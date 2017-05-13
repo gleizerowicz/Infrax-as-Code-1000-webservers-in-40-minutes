@@ -4,22 +4,25 @@ Description: app
 Parameters:
   AppGitRepo:
     Default: https://github.com/gleizerowicz/Infrax-as-Code-1000-webservers-in-40-minutes.git
-    Type: string
+    Type: String
     Description: The git repo where the application and environment artifacts are stored
 
   HostedZoneName:
     Default: leizerodemo.net.
-    Type: string
+    Type: String
     Description: The hosted zone name for Route 53
 
   UseRoute53:
     Default: true
-    Type: bool
+    Type: String
     Description: Used to decide whether to deploy a DNS Record Set, set to false if Route 53 is not set up
+    AllowedValues:
+    - true
+    - false
 
   AppDnsName:
     Default: app
-    Type: string
+    Type: String
     Description: DNS name of the app server (will be prepended to the Hosted Zone Name during deployment)
 
 Conditions: 
