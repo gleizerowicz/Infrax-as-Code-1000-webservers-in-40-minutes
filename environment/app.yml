@@ -362,8 +362,14 @@ Resources:
           # copy files from local git repo out to where they belong on the filesystem
           cp -f /Infrax-as-Code-1000-webservers-in-40-minutes/environment/default /etc/nginx/sites-enabled/default
           cp -f /Infrax-as-Code-1000-webservers-in-40-minutes/environment/uwsgi.ini /etc/uwsgi/apps-enabled/uwsgi.ini
+          cp -f /Infrax-as-Code-1000-webservers-in-40-minutes/environment/cloudwatchlogsagent.config /var/cloudwatchlogsagent.config
           cp -f /Infrax-as-Code-1000-webservers-in-40-minutes/index.py /var/www/myapp/index.py
           cp -f /Infrax-as-Code-1000-webservers-in-40-minutes/index.html /var/www/myapp/index.html
+          
+          # install and configure cloudwatch logs agent
+          curl https://s3.amazonaws.com//aws-cloudwatch/downloads/latest/awslogs-agent-setup.py -O
+          chmod +x ./awslogs-agent-setup.py
+          ./awslogs-agent-setup.py -n -r us-east-1 -c /var/cloudwatchlogsagent.config
 
           # restart services to load new configs and engage uwsgi to our app
           service nginx start
