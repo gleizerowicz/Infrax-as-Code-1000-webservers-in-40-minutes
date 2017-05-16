@@ -175,13 +175,13 @@ Resources:
       InstanceType: !FindInMap [RegionMap, !Ref 'AWS::Region', natType]
       KeyName: app
       SourceDestCheck: 'false'
-      SecurityGroups:
-      - !Ref 'natSecurityGroup'
       NetworkInterfaces:
       - AssociatePublicIpAddress: 'true'
         DeviceIndex: '0'
         DeleteOnTermination: 'true'
         SubnetId: !Ref 'publicSubnet0'
+        GroupSet:
+        - !Ref 'natSecurityGroup'
 
   publicRouteTable:
     Type: AWS::EC2::RouteTable
