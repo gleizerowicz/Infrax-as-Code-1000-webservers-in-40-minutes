@@ -175,6 +175,8 @@ Resources:
       InstanceType: !FindInMap [RegionMap, !Ref 'AWS::Region', natType]
       KeyName: app
       SourceDestCheck: 'false'
+      SecurityGroups:
+      - !Ref 'natSecurityGroup'
       NetworkInterfaces:
       - AssociatePublicIpAddress: 'true'
         DeviceIndex: '0'
@@ -279,6 +281,48 @@ Resources:
         ToPort: '22'
         CidrIp: 0.0.0.0/0
 
+  natSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: appNat
+      VpcId: !Ref 'VPC'
+      Tags:
+      - Key: Name
+        Value: appNat
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: '80'
+        ToPort: '80'
+        CidrIp: 0.0.0.0/0
+      - IpProtocol: tcp
+        FromPort: '0'
+        ToPort: '65535'
+        SourceSecurityGroupId: !Ref 'appSecurityGroup'
+      SecurityGroupEgress:
+      - IpProtocol: tcp
+        FromPort: '0'
+        ToPort: '65535'
+        CidrIp: 0.0.0.0/0
+
+  appSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: appNat
+      VpcId: !Ref 'VPC'
+      Tags:
+      - Key: Name
+        Value: appNat
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: '80'
+        ToPort: '80'
+        SourceSecurityGroupId: !Ref 'elbSecurityGroup'
+      SecurityGroupEgress:
+      - IpProtocol: tcp
+        FromPort: '0'
+        ToPort: '65535'
+        CidrIp: 0.0.0.0/0
+
   appRole:
     Type: AWS::IAM::Role
     Properties:
@@ -337,7 +381,7 @@ Resources:
       InstanceType: t2.micro
       KeyName: app
       SecurityGroups:
-      - !GetAtt 'VPC.DefaultSecurityGroup'
+      - !Ref 'appSecurityGroup'
       UserData:
         Fn::Base64: !Sub |
           #!/bin/bash
