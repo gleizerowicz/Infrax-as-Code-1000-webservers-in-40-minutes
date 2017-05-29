@@ -80,7 +80,7 @@ azMetadataUrl = 'http://169.254.169.254/latest/meta-data/placement/availability-
 availabilityZone = requests.get( azMetadataUrl ).content
 region = availabilityZone[:-1]
 #region = 'us-west-2'
-incrementServerCount ( region )
+#incrementServerCount ( region )
 
 # beacon CSS mapping
 beaconMap = {
