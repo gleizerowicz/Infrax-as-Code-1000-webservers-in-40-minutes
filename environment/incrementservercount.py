@@ -13,8 +13,7 @@ class DecimalEncoder(json.JSONEncoder):
                 return int(o)
         return super(DecimalEncoder, self).default(o)
 
-dynamodb = boto3.resource('dynamodb')
-
+dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
 table = dynamodb.Table('app')
 
 azMetadataUrl = 'http://169.254.169.254/latest/meta-data/placement/availability-zone'
