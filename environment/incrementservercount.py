@@ -2,6 +2,7 @@ from __future__ import print_function # Python 2/3 compatibility
 import boto3
 import json
 import decimal
+import requests
 
 # Helper class to convert a DynamoDB item to JSON.
 class DecimalEncoder(json.JSONEncoder):
